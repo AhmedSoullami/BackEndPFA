@@ -2,11 +2,12 @@ package com.GestionDesNotesDeveloppeur.GestionDesNotesDeveloppeur.service;
 
 import com.GestionDesNotesDeveloppeur.GestionDesNotesDeveloppeur.entities.Categorie;
 import com.GestionDesNotesDeveloppeur.GestionDesNotesDeveloppeur.repositories.CategorieRepositorie;
+import com.GestionDesNotesDeveloppeur.GestionDesNotesDeveloppeur.service.impl.CategorieService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
-public class CategoryService implements CategorieService{
+public class CategoryService implements CategorieService {
     @Autowired
     CategorieRepositorie categorieRepositorie;
     @Override

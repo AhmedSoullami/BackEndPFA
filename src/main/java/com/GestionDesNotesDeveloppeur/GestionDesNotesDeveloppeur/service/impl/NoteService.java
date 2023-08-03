@@ -1,4 +1,4 @@
-package com.GestionDesNotesDeveloppeur.GestionDesNotesDeveloppeur.service;
+package com.GestionDesNotesDeveloppeur.GestionDesNotesDeveloppeur.service.impl;
 
 import com.GestionDesNotesDeveloppeur.GestionDesNotesDeveloppeur.entities.Note;
 

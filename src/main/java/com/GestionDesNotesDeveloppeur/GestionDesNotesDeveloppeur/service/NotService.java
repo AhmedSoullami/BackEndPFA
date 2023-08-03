@@ -2,7 +2,7 @@ package com.GestionDesNotesDeveloppeur.GestionDesNotesDeveloppeur.service;
 
 import com.GestionDesNotesDeveloppeur.GestionDesNotesDeveloppeur.entities.Note;
 import com.GestionDesNotesDeveloppeur.GestionDesNotesDeveloppeur.repositories.NoteRepositorie;
-import lombok.AllArgsConstructor;
+import com.GestionDesNotesDeveloppeur.GestionDesNotesDeveloppeur.service.impl.NoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
