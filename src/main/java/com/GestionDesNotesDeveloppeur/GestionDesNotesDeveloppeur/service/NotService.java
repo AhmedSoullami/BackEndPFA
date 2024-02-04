@@ -4,9 +4,10 @@ import com.GestionDesNotesDeveloppeur.GestionDesNotesDeveloppeur.entities.Note;
 import com.GestionDesNotesDeveloppeur.GestionDesNotesDeveloppeur.repositories.NoteRepositorie;
 import com.GestionDesNotesDeveloppeur.GestionDesNotesDeveloppeur.service.impl.NoteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public class NotService implements NoteService {
 
     @Autowired
@@ -36,4 +37,8 @@ public class NotService implements NoteService {
     public List<Note> getAllNote() {
         return noteRepositorie.findAll();
     }
+    public List<Note> rechercherParCle(String cleRecherche) {
+        return noteRepositorie.findByCleContaining(cleRecherche);
+    }
+
 }

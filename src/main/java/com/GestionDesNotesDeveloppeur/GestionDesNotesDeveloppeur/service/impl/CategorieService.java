@@ -9,4 +9,5 @@ public interface CategorieService {
     Categorie getCategorie(Long id);
     List<Categorie> getAllCatrgorie();
 
+
 }

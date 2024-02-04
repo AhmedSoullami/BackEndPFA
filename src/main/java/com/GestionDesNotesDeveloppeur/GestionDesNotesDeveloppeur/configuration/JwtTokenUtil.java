@@ -17,7 +17,7 @@ import java.util.Date;
 @AllArgsConstructor
 @Component
 public class JwtTokenUtil {
-   private static final long EXPIRE_DURATION = 86400000L;
+   private static final long EXPIRE_DURATION = 120000L;
     @Value("${app.jwt.secret}")
 
     private String SECRET_KEY;
@@ -25,7 +25,7 @@ public class JwtTokenUtil {
     private static final Logger LOGGER = LoggerFactory.getLogger(JwtTokenUtil.class);
 
     public String generateAccessToken(Utilisateur user) {
-        return Jwts.builder().setSubject(String.format("%s,%s", user.getId(), user.getEmail())).setIssuer("CodeJava").setIssuedAt(new Date()).setExpiration(new Date(System.currentTimeMillis() + 86400000L)).signWith(SignatureAlgorithm.HS512, this.SECRET_KEY).compact();
+        return Jwts.builder().setSubject(String.format("%s,%s", user.getId(), user.getEmail())).setIssuer("CodeJava").setIssuedAt(new Date()).setExpiration(new Date(System.currentTimeMillis() + 120000L)).signWith(SignatureAlgorithm.HS512, this.SECRET_KEY).compact();
     }
     public boolean validateAccessToken(String token) {
         try {
@@ -53,4 +53,14 @@ public class JwtTokenUtil {
     private Claims parseClaims(String token) {
         return (Claims)Jwts.parser().setSigningKey(this.SECRET_KEY).parseClaimsJws(token).getBody();
     }
+    public boolean isTokenExpired(String token) {
+        try {
+            Claims claims = Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody();
+            Date expirationDate = claims.getExpiration();
+            return expirationDate.before(new Date());
+        } catch (ExpiredJwtException ex) {
+            return true;
+        }
+    }
+
 }

@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -15,6 +17,7 @@ public class Categorie {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nomCategorie;
+
     @ManyToOne
     @JoinColumn(name = "idUtilisateur")
     private Utilisateur user;

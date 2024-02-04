@@ -25,6 +25,7 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.Arrays;
 
 
@@ -59,39 +60,16 @@ public class SecurityConfiguration {
         http.csrf().disable();
 
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        ((ExpressionUrlAuthorizationConfigurer.AuthorizedUrl)((ExpressionUrlAuthorizationConfigurer.AuthorizedUrl)http.authorizeRequests().antMatchers(new String[]{"/auth/login", "/user/register","/user/list"})).permitAll().anyRequest()).authenticated();
+        ((ExpressionUrlAuthorizationConfigurer.AuthorizedUrl)((ExpressionUrlAuthorizationConfigurer.AuthorizedUrl)http.authorizeRequests().antMatchers(new String[]{"/auth/login","/auth/changePassword","/auth/user-details","/user/register","/user/list","/categorie/new/{idUser}","/categorie/categorie/{id}","/categorie/categories/{id}","/categorie/deleteCategorie/{id}","/categorie/update/{id}","/categorie/rechercher","/note/notes/{id}","/note/ajouterNote/{id}","/note/supprimerNote/{id}","/note/modifierNote/{id}","/note/getNote/{id}","/note/rechercher"})).permitAll().anyRequest()).authenticated();
         http.exceptionHandling().authenticationEntryPoint((request, response, ex) -> {
             response.sendError(401, ex.getMessage());
+        });
+        http.exceptionHandling().authenticationEntryPoint((request, response, ex) -> {
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, ex.getMessage());
         });
         http.addFilterBefore(this.jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
         return (SecurityFilterChain)http.build();
     }
-   /* @Bean
-    public FilterRegistrationBean corsFilter(){
-        UrlBasedCorsConfigurationSource urlBasedCorsConfigurationSource=new UrlBasedCorsConfigurationSource();
-        CorsConfiguration corsConfiguration=new CorsConfiguration();
-        corsConfiguration.setAllowCredentials(true);
-        corsConfiguration.addAllowedOrigin("http://localhost:4200");
-        corsConfiguration.setAllowedHeaders(Arrays.asList(
-                HttpHeaders.AUTHORIZATION,
-                HttpHeaders.CONTENT_TYPE,
-                HttpHeaders.ACCEPT
-        ));
-        corsConfiguration.setAllowedMethods(Arrays.asList(
-
-                HttpMethod.GET.name(),
-                HttpMethod.POST.name(),
-                HttpMethod.PUT.name(),
-                HttpMethod.DELETE.name()
-        ));
-        corsConfiguration.setMaxAge(3600L);
-        urlBasedCorsConfigurationSource.registerCorsConfiguration("/**",corsConfiguration);
-        FilterRegistrationBean bean=new FilterRegistrationBean(new CorsFilter(urlBasedCorsConfigurationSource));
-        bean.setOrder(-102);
-        return bean;
-
-
-    }*/
     @Bean
    public CorsConfigurationSource corsFilter(){
        CorsConfiguration corsConfiguration=new CorsConfiguration();
